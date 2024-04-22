@@ -10,6 +10,7 @@ require("functions.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des employés</title>
     <link rel="stylesheet" href="bootstrap.css">
+    
     <style>
         .table-container {
             border: 1px solid #888;
@@ -47,6 +48,10 @@ require("functions.php");
             <input type="text" value="" name="indexs" id="indexs" style="display: none;">
             <input type="submit" class="btn btn-danger" id="sp" name="gg">
         </form>
+        <input type="text" id="cherchebar">
+        <script>
+        </script>
+        <button id="cherche" onclick="cherche()">cherche</button>
     </div>
     <div class="container table-container my-2 border-1 rounded">
         <?php
@@ -86,18 +91,21 @@ require("functions.php");
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['gg'])) {
         $lines= $_POST['indexs'];
-        $indexes=explode(',',$lines);
-        foreach ($indexes as $key => $value){
-            unset($data[$value-1]);
-            $newDaata=array_values($data);
-            $json_updated = json_encode($newDaata,JSON_PRETTY_PRINT);
-            file_put_contents($file_path, $json_updated); 
+        if (strlen($lines)!=0){
+            $indexes=explode(',',$lines);
+            foreach ($indexes as $key => $value){
+                unset($data[$value-1]);
+                $newDaata=array_values($data);
+                $json_updated = json_encode($newDaata,JSON_PRETTY_PRINT);
+                file_put_contents($file_path, $json_updated); 
+            }
+            echo'<script>
+            window.location.href = "index.php";
+                </script>'; 
+            
         }
-        echo'<script>
-        window.location.href = "index.php";
-            </script>'; 
     }
     ?>
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

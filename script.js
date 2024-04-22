@@ -13,9 +13,15 @@ function chekboxsChecked(){
     return a12;
     a12=[]
 }
-document.querySelector('#sp').addEventListener('click', (e) => {
-    a12=chekboxsChecked();
-    document.querySelector('#indexs').value=a12;
+
+document.querySelector('form').addEventListener('submit', (e) => {
+    const a12 = chekboxsChecked();
+    if (a12.length === 0) {
+        e.preventDefault();
+        alert('chosé chi wa7da');
+    } else {
+        document.querySelector('#indexs').value = a12;
+    }
 });
 
 document.querySelector('#md').addEventListener('click', () => {
@@ -36,4 +42,3 @@ document.querySelector('#md').addEventListener('click', () => {
     }
     
 });
-
